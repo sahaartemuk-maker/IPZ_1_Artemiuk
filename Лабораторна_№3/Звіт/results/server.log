@@ -1,0 +1,28 @@
+10:29:30 INFO Порожня БД — заповнюю демонстраційними даними
+10:29:30 INFO БД: /Users/sasaartemuk/Desktop/IZP/Лабораторна_№3/Проект/StudentRating.Server/rating.db
+10:29:30 INFO Слухаю TCP-порт 5050
+10:29:30 INFO Сервер працює. Ctrl+C — зупинити.
+10:29:34 INFO Підключився клієнт 127.0.0.1:49311
+10:29:34 <<   [127.0.0.1:49311] {"Command":"PING"}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":null,"Data":"PONG"}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"GET_RATING","Args":{"group":"КІ-301"}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"ACCESS_DENIED","Message":"Потрібна авторизація (LOGIN)","Data":null}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"LOGIN","Args":{"login":"teacher","password":"0000"}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"ACCESS_DENIED","Message":"Невірний логін або пароль","Data":null}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"LOGIN","Args":{"login":"teacher","password":"2222"}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":"Вітаємо, Викладач кафедри ЕОМ","Data":{"Login":"teacher","FullName":"Викладач кафедри ЕОМ","Role":"Teacher","Token":"71474e5c88b847fdbbe2d1613129e65b"}}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"GET_GROUPS","Token":"71474e5c88b847fdbbe2d1613129e65b"}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":null,"Data":{"Groups":["КІ-201","КІ-301","КІ-302"],"Subjects":["Програмування","Вища математика","Фізика","Бази даних","ІПЗ"]}}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"GET_RATING","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"group":"КІ-301"}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":"Студентів у групі КІ-301: 5","Data":[{"Id":13,"LastName":"Олійник","FirstName":"Богдан","Group":"КІ-301","Course":3,"AverageScore":90.6,"Place":1,"Grades":[{"Subject":"Програмування","Score":95},{"Subject":"Вища математика","Score":81},{"Subject":"Фізика","Score":90},{"Subj…
+10:29:34 <<   [127.0.0.1:49311] {"Command":"FIND_BEST","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"course":3,"subject":"Програмування","minScore":70,"top":3}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":"Знайдено: 3","Data":[{"Id":1,"LastName":"Артемюк","FirstName":"Олександр","Group":"КІ-301","Course":3,"AverageScore":74.6,"Place":1,"Grades":[{"Subject":"Програмування","Score":99},{"Subject":"Вища математика","Score":61},{"Subject":"Фізика","Score":62},{"Subject":"Бази дан…
+10:29:34 <<   [127.0.0.1:49311] {"Command":"SAVE_GRADES","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"studentId":1,"grades":[{"Subject":"Програмування","Score":98},{"Subject":"ІПЗ","Score":95}]}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":"Записано оцінок: 2","Data":{"Saved":2}}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"GET_STUDENT","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"id":1}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"OK","Message":null,"Data":{"Id":1,"LastName":"Артемюк","FirstName":"Олександр","Group":"КІ-301","Course":3,"AverageScore":81.6,"Place":0,"Grades":[{"Subject":"Програмування","Score":98},{"Subject":"Вища математика","Score":61},{"Subject":"Фізика","Score":62},{"Subject":"Бази даних","Score…
+10:29:34 <<   [127.0.0.1:49311] {"Command":"SAVE_GRADES","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"studentId":1,"grades":[{"Subject":"Фізика","Score":150}]}}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"ERROR","Message":"Оцінка 150 поза діапазоном 0..100 (Parameter 'Score')","Data":null}
+10:29:34 <<   [127.0.0.1:49311] {"Command":"DELETE_ALL","Token":"71474e5c88b847fdbbe2d1613129e65b"}
+10:29:34 >>   [127.0.0.1:49311] {"Status":"UNKNOWN_COMMAND","Message":"Невідома команда DELETE_ALL","Data":null}
+10:29:34 INFO Клієнт 127.0.0.1:49311 відключився

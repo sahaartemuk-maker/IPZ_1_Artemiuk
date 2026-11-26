@@ -1,0 +1,258 @@
+Підключено до 127.0.0.1:5050
+
+=== 1. Перевірка зв'язку
+>> {"Command":"PING"}
+<< {
+  "Status": "OK",
+  "Message": null,
+  "Data": "PONG"
+}
+
+=== 2. Запит без авторизації (очікується ACCESS_DENIED)
+>> {"Command":"GET_RATING","Args":{"group":"КІ-301"}}
+<< {
+  "Status": "ACCESS_DENIED",
+  "Message": "Потрібна авторизація (LOGIN)",
+  "Data": null
+}
+
+=== 3. Невірний пароль
+>> {"Command":"LOGIN","Args":{"login":"teacher","password":"0000"}}
+<< {
+  "Status": "ACCESS_DENIED",
+  "Message": "Невірний логін або пароль",
+  "Data": null
+}
+
+=== 4. Вхід викладача
+>> {"Command":"LOGIN","Args":{"login":"teacher","password":"2222"}}
+<< {
+  "Status": "OK",
+  "Message": "Вітаємо, Викладач кафедри ЕОМ",
+  "Data": {
+    "Login": "teacher",
+    "FullName": "Викладач кафедри ЕОМ",
+    "Role": "Teacher",
+    "Token": "71474e5c88b847fdbbe2d1613129e65b"
+  }
+}
+
+=== 5. Список груп і предметів
+>> {"Command":"GET_GROUPS","Token":"71474e5c88b847fdbbe2d1613129e65b"}
+<< {
+  "Status": "OK",
+  "Message": null,
+  "Data": {
+    "Groups": [
+      "КІ-201",
+      "КІ-301",
+      "КІ-302"
+    ],
+    "Subjects": [
+      "Програмування",
+      "Вища математика",
+      "Фізика",
+      "Бази даних",
+      "ІПЗ"
+    ]
+  }
+}
+
+=== 6. Рейтинг групи КІ-301
+>> {"Command":"GET_RATING","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"group":"КІ-301"}}
+<< {
+  "Status": "OK",
+  "Message": "Студентів у групі КІ-301: 5",
+  "Data": [
+    {
+      "Id": 13,
+      "LastName": "Олійник",
+      "FirstName": "Богдан",
+      "Group": "КІ-301",
+      "Course": 3,
+      "AverageScore": 90.6,
+      "Place": 1,
+      "Grades": [
+        {
+          "Subject": "Програмування",
+          "Score": 95
+        },
+        {
+          "Subject": "Вища математика",
+          "Score": 81
+        },
+        {
+          "Subject": "Фізика",
+          "Score": 90
+        },
+        {
+          "Subject": "Бази даних",
+          "Score": 88
+        },
+        {
+          "Subject": "ІПЗ",
+          "Score": 99
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "LastName": "Бондар",
+      "FirstName": "Ірина",
+      "Group": "КІ-301",
+      "Course": 3,
+      "AverageScore": 79.2,
+      "Place": 2,
+      "Grades": [
+        {
+          "Subject": "Програмування",
+          "Score": 55
+        },
+        {
+          "Subject": "Вища математика",
+          "Score": 72
+        },
+        {
+          "Subject": "Фізика",
+          "Score": 83
+        },
+        {
+          "Subject": "Бази даних",
+          "Score": 92
+        },
+        {
+          "Subject": "ІП
+   …
+
+=== 7. Пошук кращих: 3 курс, «Програмування» ≥ 70, топ-3
+>> {"Command":"FIND_BEST","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"course":3,"subject":"Програмування","minScore":70,"top":3}}
+<< {
+  "Status": "OK",
+  "Message": "Знайдено: 3",
+  "Data": [
+    {
+      "Id": 1,
+      "LastName": "Артемюк",
+      "FirstName": "Олександр",
+      "Group": "КІ-301",
+      "Course": 3,
+      "AverageScore": 74.6,
+      "Place": 1,
+      "Grades": [
+        {
+          "Subject": "Програмування",
+          "Score": 99
+        },
+        {
+          "Subject": "Вища математика",
+          "Score": 61
+        },
+        {
+          "Subject": "Фізика",
+          "Score": 62
+        },
+        {
+          "Subject": "Бази даних",
+          "Score": 92
+        },
+        {
+          "Subject": "ІПЗ",
+          "Score": 59
+        }
+      ]
+    },
+    {
+      "Id": 13,
+      "LastName": "Олійник",
+      "FirstName": "Богдан",
+      "Group": "КІ-301",
+      "Course": 3,
+      "AverageScore": 90.6,
+      "Place": 2,
+      "Grades": [
+        {
+          "Subject": "Програмування",
+          "Score": 95
+        },
+        {
+          "Subject": "Вища математика",
+          "Score": 81
+        },
+        {
+          "Subject": "Фізика",
+          "Score": 90
+        },
+        {
+          "Subject": "Бази даних",
+          "Score": 88
+        },
+        {
+          "Subject": "ІПЗ",
+       
+   …
+
+=== 8. Запис оцінок у БД (студент Id=1)
+>> {"Command":"SAVE_GRADES","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"studentId":1,"grades":[{"Subject":"Програмування","Score":98},{"Subject":"ІПЗ","Score":95}]}}
+<< {
+  "Status": "OK",
+  "Message": "Записано оцінок: 2",
+  "Data": {
+    "Saved": 2
+  }
+}
+
+=== 9. Перевірка: картка студента Id=1 з БД
+>> {"Command":"GET_STUDENT","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"id":1}}
+<< {
+  "Status": "OK",
+  "Message": null,
+  "Data": {
+    "Id": 1,
+    "LastName": "Артемюк",
+    "FirstName": "Олександр",
+    "Group": "КІ-301",
+    "Course": 3,
+    "AverageScore": 81.6,
+    "Place": 0,
+    "Grades": [
+      {
+        "Subject": "Програмування",
+        "Score": 98
+      },
+      {
+        "Subject": "Вища математика",
+        "Score": 61
+      },
+      {
+        "Subject": "Фізика",
+        "Score": 62
+      },
+      {
+        "Subject": "Бази даних",
+        "Score": 92
+      },
+      {
+        "Subject": "ІПЗ",
+        "Score": 95
+      }
+    ]
+  }
+}
+
+=== 10. Некоректна оцінка 150 (транзакція відкочується)
+>> {"Command":"SAVE_GRADES","Token":"71474e5c88b847fdbbe2d1613129e65b","Args":{"studentId":1,"grades":[{"Subject":"Фізика","Score":150}]}}
+<< {
+  "Status": "ERROR",
+  "Message": "Оцінка 150 поза діапазоном 0..100 (Parameter 'Score')",
+  "Data": null
+}
+
+=== 11. Невідома команда
+>> {"Command":"DELETE_ALL","Token":"71474e5c88b847fdbbe2d1613129e65b"}
+<< {
+  "Status": "UNKNOWN_COMMAND",
+  "Message": "Невідома команда DELETE_ALL",
+  "Data": null
+}
+
+З'єднання закрито.

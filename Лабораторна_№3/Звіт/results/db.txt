@@ -1,0 +1,30 @@
+sqlite> SELECT s.Id, s.LastName, s.GroupName, sub.Name, g.Score, g.UpdatedAt FROM Grades g JOIN Students s ON s.Id=g.StudentId JOIN Subjects sub ON sub.Id=g.SubjectId WHERE s.Id=1;
+Id  LastName  GroupName  Subject          Score  UpdatedAt          
+--  --------  ---------  ---------------  -----  -------------------
+1   Артемюк   КІ-301     Програмування    98     2026-11-26 10:29:34
+1   Артемюк   КІ-301     Вища математика  61     2026-11-26 10:29:30
+1   Артемюк   КІ-301     Фізика           62     2026-11-26 10:29:30
+1   Артемюк   КІ-301     Бази даних       92     2026-11-26 10:29:30
+1   Артемюк   КІ-301     ІПЗ              95     2026-11-26 10:29:34
+
+sqlite> SELECT * FROM RequestLog;
+Id  Time                 Client           Command      Status         
+--  -------------------  ---------------  -----------  ---------------
+1   2026-11-26 10:29:34  127.0.0.1:49311  PING         OK             
+2   2026-11-26 10:29:34  127.0.0.1:49311  GET_RATING   ACCESS_DENIED  
+3   2026-11-26 10:29:34  127.0.0.1:49311  LOGIN        ACCESS_DENIED  
+4   2026-11-26 10:29:34  127.0.0.1:49311  LOGIN        OK             
+5   2026-11-26 10:29:34  127.0.0.1:49311  GET_GROUPS   OK             
+6   2026-11-26 10:29:34  127.0.0.1:49311  GET_RATING   OK             
+7   2026-11-26 10:29:34  127.0.0.1:49311  FIND_BEST    OK             
+8   2026-11-26 10:29:34  127.0.0.1:49311  SAVE_GRADES  OK             
+9   2026-11-26 10:29:34  127.0.0.1:49311  GET_STUDENT  OK             
+10  2026-11-26 10:29:34  127.0.0.1:49311  SAVE_GRADES  ERROR          
+11  2026-11-26 10:29:34  127.0.0.1:49311  DELETE_ALL   UNKNOWN_COMMAND
+
+sqlite> SELECT Id, Login, FullName, Role FROM Users;
+Id  Login    FullName              Role   
+--  -------  --------------------  -------
+1   student  Артемюк Олександр     Student
+2   teacher  Викладач кафедри ЕОМ  Teacher
+3   admin    Адміністратор         Admin  
