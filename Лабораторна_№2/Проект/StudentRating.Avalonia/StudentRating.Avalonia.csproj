@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <RollForward>Major</RollForward>
     <Nullable>disable</Nullable>
     <RootNamespace>StudentRating.Client</RootNamespace>
     <AssemblyName>StudentRating</AssemblyName>
