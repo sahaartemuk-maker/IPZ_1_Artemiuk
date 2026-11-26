@@ -1,0 +1,30 @@
+@startuml
+title Діаграма варіантів використання — серверна частина
+left to right direction
+actor "Клієнтська програма" as C
+actor "База даних" as DB
+actor "Адміністратор сервера" as A
+rectangle "Сервер: Моніторинг рейтингу" {
+  usecase "Прийняти TCP-з'єднання" as S1
+  usecase "Перевірити облікові дані" as S2
+  usecase "Розрахувати рейтинг" as S3
+  usecase "Сформувати список кращих" as S4
+  usecase "Зберегти оцінки" as S5
+  usecase "Надіслати відповідь клієнту" as S6
+  usecase "Вести журнал подій" as S7
+  usecase "Запустити/зупинити сервер" as S8
+}
+C --> S1
+S1 .> S2 : <<include>>
+C --> S3
+C --> S4
+C --> S5
+S3 .> S6 : <<include>>
+S4 .> S3 : <<include>>
+S5 .> S6 : <<include>>
+S2 --> DB
+S3 --> DB
+S5 --> DB
+A --> S8
+A --> S7
+@enduml

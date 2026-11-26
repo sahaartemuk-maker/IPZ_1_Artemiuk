@@ -1,0 +1,30 @@
+@startuml
+title Діаграма варіантів використання — клієнтська частина
+left to right direction
+actor "Студент" as S
+actor "Викладач" as T
+actor "Адміністратор" as A
+T --|> S
+A --|> T
+rectangle "Клієнт: Моніторинг рейтингу студентів" {
+  usecase "Авторизуватися" as UC1
+  usecase "Переглянути власний рейтинг" as UC2
+  usecase "Переглянути рейтинг групи" as UC3
+  usecase "Пошук кращих студентів" as UC4
+  usecase "Фільтрувати за курсом/групою/предметом" as UC5
+  usecase "Внести/змінити оцінки" as UC6
+  usecase "Експортувати рейтинг" as UC7
+  usecase "Керувати користувачами" as UC8
+}
+S --> UC1
+S --> UC2
+S --> UC3
+S --> UC4
+T --> UC6
+T --> UC7
+A --> UC8
+UC4 .> UC5 : <<include>>
+UC2 .> UC1 : <<include>>
+UC6 .> UC1 : <<include>>
+UC7 .> UC3 : <<extend>>
+@enduml
