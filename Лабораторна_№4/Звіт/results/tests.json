@@ -1,0 +1,142 @@
+[
+  {
+    "Id": "T01",
+    "Name": "Перевірка зв'язку (PING)",
+    "Expected": "OK, PONG",
+    "Actual": "OK, PONG",
+    "Pass": true
+  },
+  {
+    "Id": "T02",
+    "Name": "Запит рейтингу без авторизації",
+    "Expected": "ACCESS_DENIED",
+    "Actual": "ACCESS_DENIED: Потрібна авторизація (LOGIN)",
+    "Pass": true
+  },
+  {
+    "Id": "T03",
+    "Name": "Вхід з невірним паролем",
+    "Expected": "ACCESS_DENIED",
+    "Actual": "ACCESS_DENIED: Невірний логін або пароль",
+    "Pass": true
+  },
+  {
+    "Id": "T04",
+    "Name": "Вхід студента",
+    "Expected": "OK, роль Student, видано токен",
+    "Actual": "OK, роль Student, токен 32 симв.",
+    "Pass": true
+  },
+  {
+    "Id": "T05",
+    "Name": "Студент намагається змінити оцінки",
+    "Expected": "ACCESS_DENIED",
+    "Actual": "ACCESS_DENIED: Операція доступна лише викладачу",
+    "Pass": true
+  },
+  {
+    "Id": "T06",
+    "Name": "Вхід викладача",
+    "Expected": "OK, роль Teacher",
+    "Actual": "OK, роль Teacher",
+    "Pass": true
+  },
+  {
+    "Id": "T07",
+    "Name": "Довідники груп і предметів",
+    "Expected": "3 групи, 5 предметів",
+    "Actual": "3 груп, 5 предметів",
+    "Pass": true
+  },
+  {
+    "Id": "T08",
+    "Name": "Рейтинг групи КІ-301 відсортовано",
+    "Expected": "5 студентів, бал спадає, місця 1..5",
+    "Actual": "5 студентів, бали: 90,6 ≥ 79,2 ≥ 79 ≥ 76 ≥ 74,6",
+    "Pass": true
+  },
+  {
+    "Id": "T09",
+    "Name": "Рейтинг неіснуючої групи",
+    "Expected": "OK, порожній список",
+    "Actual": "OK, 0 записів",
+    "Pass": true
+  },
+  {
+    "Id": "T10",
+    "Name": "Пошук кращих: 3 курс, «Програмування» ≥ 70, топ-3",
+    "Expected": "≤ 3 студенти, усі з 3 курсу",
+    "Actual": "3 студ., бали з програмування: 99, 95, 94",
+    "Pass": true
+  },
+  {
+    "Id": "T11",
+    "Name": "Запис оцінки в БД і повторне читання",
+    "Expected": "OK; GET_STUDENT повертає 77 з фізики",
+    "Actual": "OK (Записано оцінок: 1); у БД: 77",
+    "Pass": true
+  },
+  {
+    "Id": "T12",
+    "Name": "Оцінка поза діапазоном (150) — відкат транзакції",
+    "Expected": "ERROR; у БД нічого не змінилось",
+    "Actual": "ERROR: Оцінка 150 поза діапазоном 0..100 (Parameter 'Score'); Фізика=77, ІПЗ=67 (було 67)",
+    "Pass": true
+  },
+  {
+    "Id": "T13",
+    "Name": "Оцінка з невідомого предмета",
+    "Expected": "ERROR",
+    "Actual": "ERROR: Невідомий предмет «Астрологія»",
+    "Pass": true
+  },
+  {
+    "Id": "T14",
+    "Name": "Оцінки неіснуючому студенту",
+    "Expected": "ERROR",
+    "Actual": "ERROR: Студента з Id=9999 не існує",
+    "Pass": true
+  },
+  {
+    "Id": "T15",
+    "Name": "Додавання студента і читання з БД",
+    "Expected": "OK, новий Id, GET_STUDENT знаходить",
+    "Actual": "OK, Id=16, Тестовий КІ-302",
+    "Pass": true
+  },
+  {
+    "Id": "T16",
+    "Name": "Додавання студента без прізвища",
+    "Expected": "ERROR",
+    "Actual": "ERROR: Прізвище, ім'я та група обов'язкові",
+    "Pass": true
+  },
+  {
+    "Id": "T17",
+    "Name": "Невідома команда",
+    "Expected": "UNKNOWN_COMMAND",
+    "Actual": "UNKNOWN_COMMAND: Невідома команда DROP_DATABASE",
+    "Pass": true
+  },
+  {
+    "Id": "T18",
+    "Name": "Некоректний пакет (не JSON)",
+    "Expected": "ERROR, з'єднання не розривається",
+    "Actual": "ERROR: Некоректний формат пакета (очікується JSON); наступний PING: OK",
+    "Pass": true
+  },
+  {
+    "Id": "T19",
+    "Name": "5 одночасних клієнтів",
+    "Expected": "усі отримали PONG",
+    "Actual": "5 з 5 відповіли PONG",
+    "Pass": true
+  },
+  {
+    "Id": "T20",
+    "Name": "Підробний токен",
+    "Expected": "ACCESS_DENIED",
+    "Actual": "ACCESS_DENIED: Потрібна авторизація (LOGIN)",
+    "Pass": true
+  }
+]
