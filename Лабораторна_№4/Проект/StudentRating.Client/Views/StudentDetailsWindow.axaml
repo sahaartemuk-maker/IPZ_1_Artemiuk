@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StudentRating.Client.Views.StudentDetailsWindow"
+        Title="Картка студента" Width="440" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" CanResize="False" ShowInTaskbar="False">
+    <StackPanel Margin="20">
+        <TextBlock Text="{Binding FullName}" Classes="header"/>
+        <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto">
+            <TextBlock Text="Група:"/>
+            <TextBlock Grid.Column="1" Text="{Binding Group}"/>
+            <TextBlock Grid.Row="1" Text="Курс:"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Course}"/>
+            <TextBlock Grid.Row="2" Text="Місце:"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Place}"/>
+            <TextBlock Grid.Row="3" Text="Середній бал:"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Bold" Text="{Binding AverageScore, StringFormat='{}{0:F2}'}"/>
+        </Grid>
+        <TextBlock Text="Оцінки:" Classes="label" FontWeight="Bold"/>
+        <DataGrid ItemsSource="{Binding Grades}" Height="200">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Предмет" Binding="{Binding Subject}" Width="*"/>
+                <DataGridTextColumn Header="Бал" Binding="{Binding Score}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Закрити" Classes="primary" HorizontalAlignment="Right" Margin="0,12,0,0"
+                IsDefault="True" IsCancel="True" Click="OnClose"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StudentRating.Client.Views.LoginWindow"
+        Title="Вхід — Рейтинг студентів" Width="400" SizeToContent="Height"
+        WindowStartupLocation="CenterScreen" CanResize="False">
+    <StackPanel Margin="24">
+        <TextBlock Text="Моніторинг рейтингу студентів" Classes="header"/>
+
+        <TextBlock Text="Сервер:" Classes="label"/>
+        <Grid ColumnDefinitions="*,8,90">
+            <TextBox x:Name="HostBox" Text="127.0.0.1"/>
+            <TextBox x:Name="PortBox" Grid.Column="2" Text="5050"/>
+        </Grid>
+
+        <TextBlock Text="Логін:" Classes="label"/>
+        <TextBox x:Name="LoginBox" Text="{Binding Login}"/>
+
+        <TextBlock Text="Пароль:" Classes="label"/>
+        <TextBox x:Name="PasswordBox" PasswordChar="●"/>
+
+        <TextBlock x:Name="StatusText" Classes="status"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button x:Name="LoginButton" Content="Увійти" Classes="primary" IsDefault="True" Click="OnLoginClick"/>
+            <Button Content="Вихід" Classes="secondary" IsCancel="True" Click="OnExitClick"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

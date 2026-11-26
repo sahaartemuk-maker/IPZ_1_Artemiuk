@@ -1,0 +1,11 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="StudentRating.Client.App"
+             RequestedThemeVariant="Light">
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <!-- Усі стилі та кольори винесені в окремий файл -->
+        <StyleInclude Source="avares://StudentRating/Styles/AppStyles.axaml"/>
+    </Application.Styles>
+</Application>

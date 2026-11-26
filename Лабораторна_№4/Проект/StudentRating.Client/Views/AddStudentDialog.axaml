@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StudentRating.Client.Views.AddStudentDialog"
+        Title="Новий студент" Width="380" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" CanResize="False" ShowInTaskbar="False">
+    <StackPanel Margin="20">
+        <TextBlock Text="Додати студента" Classes="header"/>
+        <TextBlock Text="Прізвище:" Classes="label"/>
+        <TextBox x:Name="LastNameBox"/>
+        <TextBlock Text="Ім'я:" Classes="label"/>
+        <TextBox x:Name="FirstNameBox"/>
+        <TextBlock Text="Група:" Classes="label"/>
+        <ComboBox x:Name="GroupBox"/>
+        <TextBlock Text="Курс:" Classes="label"/>
+        <NumericUpDown x:Name="CourseBox" Minimum="1" Maximum="6" Value="3" FormatString="0"/>
+        <TextBlock x:Name="StatusText" Classes="status"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button x:Name="SaveButton" Content="Додати" Classes="primary" IsDefault="True" Click="OnSaveClick"/>
+            <Button Content="Скасувати" Classes="secondary" IsCancel="True" Click="OnCancelClick"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
