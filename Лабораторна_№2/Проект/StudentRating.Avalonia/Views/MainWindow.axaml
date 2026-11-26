@@ -1,0 +1,106 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StudentRating.Client.Views.MainWindow"
+        Title="Моніторинг рейтингу студентів" Width="920" Height="620"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <!-- Верхня панель: користувач і кнопки -->
+        <Border DockPanel.Dock="Top" Classes="topbar">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button Content="Про програму" Classes="secondary" Click="OnAboutClick"/>
+                    <Button Content="Вийти" Classes="secondary" Click="OnLogoutClick"/>
+                </StackPanel>
+                <TextBlock Foreground="White" FontSize="15" VerticalAlignment="Center">
+                    <Run Text="{Binding CurrentUser.FullName}" FontWeight="Bold"/>
+                    <Run Text=" — "/>
+                    <Run Text="{Binding CurrentUser.RoleName}"/>
+                </TextBlock>
+            </DockPanel>
+        </Border>
+
+        <TextBlock DockPanel.Dock="Bottom" x:Name="StatusText" Margin="12,4" Foreground="Gray"/>
+
+        <TabControl Margin="8">
+            <!-- 1. Рейтинг групи -->
+            <TabItem Header="Рейтинг групи">
+                <DockPanel Margin="8">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <TextBlock Text="Група:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox Width="140" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}"/>
+                        <Button Content="Показати" Classes="primary" Click="OnShowRatingClick"/>
+                        <Button Content="Детально…" Classes="primary" Click="OnDetailsClick"/>
+                        <Button Content="Експорт у CSV" Classes="secondary" Click="OnExportClick"
+                                IsVisible="{Binding CurrentUser.IsTeacher}"/>
+                    </StackPanel>
+                    <DataGrid x:Name="RatingGrid" Margin="0,8,0,0" ItemsSource="{Binding Rating}"
+                              SelectedItem="{Binding SelectedStudent}" DoubleTapped="OnRatingDoubleTapped">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Місце" Binding="{Binding Place}" Width="80"/>
+                            <DataGridTextColumn Header="ПІБ" Binding="{Binding FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Група" Binding="{Binding Group}" Width="110"/>
+                            <DataGridTextColumn Header="Курс" Binding="{Binding Course}" Width="80"/>
+                            <DataGridTextColumn Header="Середній бал" Binding="{Binding AverageScore, StringFormat='{}{0:F2}'}" Width="140"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- 2. Пошук кращих -->
+            <TabItem Header="Пошук кращих">
+                <DockPanel Margin="8">
+                    <StackPanel DockPanel.Dock="Left" Width="230" Margin="0,0,12,0" DataContext="{Binding Criteria}">
+                        <TextBlock Text="Курс:" Classes="label"/>
+                        <ComboBox x:Name="CourseCombo" SelectionChanged="OnCourseChanged"/>
+                        <TextBlock Text="Група:" Classes="label"/>
+                        <ComboBox x:Name="GroupCombo" SelectedItem="{Binding Group}"/>
+                        <TextBlock Text="Предмет:" Classes="label"/>
+                        <ComboBox x:Name="SubjectCombo" SelectedItem="{Binding Subject}"/>
+                        <TextBlock Text="Мінімальний бал (0–100):" Classes="label"/>
+                        <TextBox Text="{Binding MinScore}"/>
+                        <TextBlock Text="Кількість (топ-N):" Classes="label"/>
+                        <TextBox Text="{Binding TopCount}"/>
+                        <Button Content="Знайти" Classes="primary" HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" Margin="0,12,0,0" Click="OnSearchClick"/>
+                        <Button Content="Скинути" Classes="secondary" HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" Margin="0,4,0,0" Click="OnResetClick"/>
+                    </StackPanel>
+                    <DataGrid x:Name="BestGrid" ItemsSource="{Binding BestStudents}" DoubleTapped="OnBestDoubleTapped">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding Place}" Width="60"/>
+                            <DataGridTextColumn Header="ПІБ" Binding="{Binding FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Група" Binding="{Binding Group}" Width="110"/>
+                            <DataGridTextColumn Header="Середній бал" Binding="{Binding AverageScore, StringFormat='{}{0:F2}'}" Width="140"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- 3. Оцінки (лише для викладача) -->
+            <TabItem Header="Оцінки" IsVisible="{Binding CurrentUser.IsTeacher}">
+                <DockPanel Margin="8">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <TextBlock Text="Оберіть студента в рейтингу групи та натисніть:" VerticalAlignment="Center"/>
+                        <Button Content="Редагувати оцінки…" Classes="primary" Click="OnEditGradesClick"/>
+                    </StackPanel>
+                    <Border Margin="0,8,0,0" Padding="12" Background="White" BorderBrush="#CCC" BorderThickness="1">
+                        <StackPanel DataContext="{Binding SelectedStudent}">
+                            <TextBlock Text="{Binding FullName}" Classes="header"/>
+                            <TextBlock Text="{Binding Group, StringFormat='Група: {0}'}"/>
+                            <TextBlock Text="{Binding AverageScore, StringFormat='Середній бал: {0:F2}'}"/>
+                            <ItemsControl ItemsSource="{Binding Grades}" Margin="0,8,0,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <Run Text="{Binding Subject}"/><Run Text=": "/><Run Text="{Binding Score}" FontWeight="Bold"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

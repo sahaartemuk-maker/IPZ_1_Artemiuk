@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StudentRating.Client.Views.AboutWindow"
+        Title="Про програму" Width="360" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" CanResize="False" ShowInTaskbar="False">
+    <StackPanel Margin="20">
+        <TextBlock Text="Рейтинг студентів" Classes="header"/>
+        <TextBlock TextWrapping="Wrap" Text="Клієнт системи моніторингу рейтингу студентів та пошуку кращих."/>
+        <TextBlock Margin="0,8,0,0" Text="Версія 0.2 (ЛР №2 — GUI)"/>
+        <TextBlock Text="Автор: Артемюк О., КІ-301"/>
+        <Button Content="OK" Classes="primary" HorizontalAlignment="Right" Margin="0,12,0,0"
+                IsDefault="True" IsCancel="True" Click="OnOk"/>
+    </StackPanel>
+</Window>

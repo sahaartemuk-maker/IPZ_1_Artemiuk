@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <RootNamespace>StudentRating.Client</RootNamespace>
+    <AssemblyName>StudentRating</AssemblyName>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.3" />
+  </ItemGroup>
+
+  <!-- Моделі та сервіс даних спільні з WPF-версією -->
+  <ItemGroup>
+    <Compile Include="..\StudentRating.Client\Models\*.cs" Link="Models\%(Filename)%(Extension)" />
+    <Compile Include="..\StudentRating.Client\Services\*.cs" Link="Services\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>
