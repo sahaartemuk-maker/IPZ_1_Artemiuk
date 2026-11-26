@@ -1,0 +1,15 @@
+<Window x:Class="StudentRating.Client.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Про програму" Width="360" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False"
+        Style="{StaticResource WindowStyle}">
+    <StackPanel Margin="20">
+        <TextBlock Text="Рейтинг студентів" Style="{StaticResource HeaderText}"/>
+        <TextBlock TextWrapping="Wrap" Text="Клієнт системи моніторингу рейтингу студентів та пошуку кращих."/>
+        <TextBlock Margin="0,8,0,0" Text="Версія 0.2 (ЛР №2 — GUI)"/>
+        <TextBlock Text="Автор: Артемюк О., КІ-301"/>
+        <Button Content="OK" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right"
+                Margin="0,12,0,0" IsDefault="True" IsCancel="True"/>
+    </StackPanel>
+</Window>
